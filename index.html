@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVIE APP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container-fluid jumbotron">
+    <h1 class="text-center mt-7 mb-5 text-primary">MOVIE FINDER :</h1>
+    <form  id="movieform" autocomplete="off">
+      <div class="form-group mx-auto ">
+        <input class="w-100"
+        type="text" id="movie" placeholder="eg-mirchi..">
+      </div>
+      <div class="form-group mx-auto">
+        <button id="button" type="button" class=" w-25 btn btn-success">Submit</button>
+      </div>
+    </form>
+    <div id="result">
+    </div>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+
+      $("#button").click(function(event){
+         // event.preventDefault()
+        var movie=$("#movie").val();
+        var result=" "
+        var url = "http://www.omdbapi.com/?i=tt3896198&apikey=2e73a707&t=";
+        $.ajax({
+          type:'GET',
+          url:url+movie,
+          dataType:'json',
+          success:function(data ){
+            console.log(data);
+            result=`
+
+            <img  style="float-left" class="img-thumnail"  width="400px" height="300px" src="${data.Poster}" />
+            <h3>Actors:${data.Actors}</h3>
+            <h3>Director:${data.Director}</h3>
+            <h3>Genre:${data.Genre}</h3>
+            <h3>Lan:${data.Language}</h3>
+            <h3>Released:${data.Released}</h3>
+            <h3>Awards:${data.Awards}</h3>
+
+
+            `
+
+            $('#result').html(result);
+
+
+
+
+          }
+        });
+        return false;
+
+      });
+    });
+
+  </script>
+  <!-- <script type="text/javascript">
+
+  var restURL="https://www.omdbapi.com/?i=tt3896198&apikey=2e73a707&t=";
+  $('#button').click(function(){
+    var m = $('#movie').val();
+        $.ajax({
+      type: 'GET',
+      url: restURL+m,
+      dataType:"json",
+      success: renderList
+        });
+        return false;
+  });
+  function renderList(data) {
+      console.log(data);
+  }
+  </script> -->
+</html>
